@@ -10,14 +10,16 @@ public class UsageExample {
         Transaction credit = new Transaction(Transaction.BANK_ACCOUNT_IBAN,
                 "UA123456789074538564037264397",
                 new BigInteger("500.75"),
-                LocalDateTime.now().plusDays(1));
+                LocalDateTime.now().plusDays(1),
+                Transaction.TrnsactionType.CREDIT);
 
         try {
             // Amount должен быть положительным
             Transaction transfer = new Transaction("UA123456789074538564037264397",
                     "UA123456789074538564037255597",
                     new BigInteger("-345.12"),
-                    LocalDateTime.of(2022, Month.APRIL, 1, 12, 15, 0));
+                    LocalDateTime.of(2022, Month.APRIL, 1, 12, 15, 0),
+                    Transaction.TrnsactionType.TRANSFER);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

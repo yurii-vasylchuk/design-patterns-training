@@ -10,8 +10,9 @@ public class Transaction {
     private String ibanTo;
     private BigInteger amount;
     private LocalDateTime dateTime;
+    private TrnsactionType type;
 
-    public Transaction(String ibanFrom, String ibanTo, BigInteger amount, LocalDateTime dateTime) {
+    public Transaction(String ibanFrom, String ibanTo, BigInteger amount, LocalDateTime dateTime, TrnsactionType type) {
         //TODO: бросать исключение из конструктора - плохая практика. Нужно использовать фабрику
         //TODO: Конструктор должен быть максимально простым. Вся логика должна быть в фабрике
         if (amount.compareTo(BigInteger.ZERO) <= 0) {
@@ -42,20 +43,17 @@ public class Transaction {
         this.ibanTo = ibanTo;
         this.amount = amount;
         this.dateTime = dateTime;
+        this.type = type;
     }
 
     // TODO: Добавить фабричные методы для создания транзакций: credit, debit, transfer
-    // credit - пополнение счета (например банк возвращает проценты по депозиту), ibanFrom = BANK_ACCOUNT_IBAN
-    // debit - оплата чего-то (например комиссия банка или плата за обслуживание), ibanTo = BANK_ACCOUNT_IBAN
-    // transfer - перевод средств c одного счета на другой
+    // credit - пополнение счета (например банк возвращает проценты по депозиту), ibanFrom = BANK_ACCOUNT_IBAN, type = CREDIT
+    // debit - оплата чего-то (например комиссия банка или плата за обслуживание), ibanTo = BANK_ACCOUNT_IBAN, type = DEBIT
+    // transfer - перевод средств c одного счета на другой. type = TRANSFER
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "ibanFrom='" + ibanFrom + '\'' +
-                ", ibanTo='" + ibanTo + '\'' +
-                ", amount=" + amount +
-                ", dateTime=" + dateTime +
-                '}';
+    public enum TrnsactionType {
+        CREDIT,
+        DEBIT,
+        TRANSFER
     }
 }
